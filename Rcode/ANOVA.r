@@ -14,16 +14,38 @@ library("gplots")
 ## data check----
  head(df)
 
+#Normality Visualization
+boxplot(df$x6)
 
+boxplot(df$x6,
+        main = "Box plot for Product Quality",
+        xlab = "",
+        ylab = "Product Quality",
+        col = "red")
 
+boxplot(x6 ~ x1, data = df,
+        xlab = "customer type", ylab = "product quality",
+        main = "compare", col = c("#00AFBB", "#E7B800", "#FC4E07")
+        , names=c("<1 year","1-5 years",">5 years") )
 
+boxplot(x6 ~ x1, data = df,
+        xlab = "customer type", ylab = "product quality",
+        main = "compare", col = c("red", "blue", "green")
+        , names=c("<1 year","1-5 years",">5 years") )
 
+hist(df$x6)
 
+hist(df[df$x1==1, ]$x6)
+hist(df[df$x1==2, ]$x6)
+hist(df[df$x1==3, ]$x6)
 
+# SW test ----
+shapiro.test(df$x6)
 
-
-
-
+#KS test ----
+# for large dataset
+lillie.test(df$x6)
+lillie.test(df[df$x1 == 1,]$x6)
 
 
 
