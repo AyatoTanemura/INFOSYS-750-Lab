@@ -60,9 +60,15 @@ levene.test(df$x6, df$x1, location = c('trim.mean'))
 
 str(df)
 
+# One-way ANOVA ----
+fit <- aov(x6 ~ as.factor(x1), data = df)
+summary(fit)
 
-
-
+## Multiple comparison table ----
+## Tukey
+TukeyHSD(fit)
+library("PMCMRplus")
+summary(T2 <- tamhaneT2Test(df$x6, as.factor(df$x1)))
 
 
 
