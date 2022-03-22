@@ -47,9 +47,18 @@ shapiro.test(df$x6)
 lillie.test(df$x6)
 lillie.test(df[df$x1 == 1,]$x6)
 
+# Homogeneity of the variance ----
+# cheking that all comparison groups have the same variance
+# there are three versions of the Levene's test
+  # use of mean (standard way to median above)
+  # use of median (replace mean by median above)
+  # use of 10% trimed mean (replace mean by 10% trimed mean above)
 
+levene.test(df$x6, df$x1, location = c('mean'))
+levene.test(df$x6, df$x1, location = c('median'))
+levene.test(df$x6, df$x1, location = c('trim.mean'))
 
-
+str(df)
 
 
 
