@@ -84,6 +84,13 @@ TukeyHSD(fit2)
 #Tamhane 
 summary(T2 <- tamhaneT2Test(df$x6, as.factor(df$x1):as.factor(df$x2)))
 
+# Interaction Plot ----
+interaction.plot(as.factor(df$x1),as.factor(df$x2), df$x6,type="b", col=c(1:3), 
+                 leg.bty="o", leg.bg="beige", lwd=2, pch=c(18,24,22),	
+                 xlab="customer type", 
+                 ylab="estimated marginal means", 
+                 main="Interaction Plot")
+
 
 
 
