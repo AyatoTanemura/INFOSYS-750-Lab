@@ -70,9 +70,19 @@ TukeyHSD(fit)
 library("PMCMRplus")
 summary(T2 <- tamhaneT2Test(df$x6, as.factor(df$x1)))
 
+# Two-way anova ----
 
+# Assumption check
+# Normality for two way anova
+boxplot(x6~x1*x2,data=df,ylab="product quality",xlab="customer type*Industry type",col=c("blue","yellow"), frame=FALSE)
 
+fit2 <- aov(x6 ~ as.factor(x1)+as.factor(x2)+ as.factor(x1):as.factor(x2), data=df)
+summary(fit2)
 
+##Tukey
+TukeyHSD(fit2)
+#Tamhane 
+summary(T2 <- tamhaneT2Test(df$x6, as.factor(df$x1):as.factor(df$x2)))
 
 
 
