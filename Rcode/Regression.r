@@ -87,16 +87,30 @@ abline(0, 0, col="red")
 
 # Transforming Existing Variables----
 
+library(dplyr)
+df.sales<-mutate(df.sales,ln_CASES.18PK=log10(df.sales$CASES.18PK),ln_PRICE.18PK=log10(df.sales$PRICE.18PK))
+fitModel1<-lm(ln_CASES.18PK~ln_PRICE.18PK, data=df.sales)
+summary(fitModel1)
 
+# When a simple linear regression model is fitted to logged variables, the slop coefficient represents the predicted percet change in the 
+## dependent variable per percent change in the independent variable, regardless of their cuurent levels.
 
+## residual vs predicted----
+residualData<-resid(fitModel1)
+predicted<-predict(fitModel1)
+plot(predicted,residualData, xlab="Predicted Values", ylab="Residuals", col="red")
 
+# Add new variables----
 
+df.sales<-mutate(df.sales,ln_PRICE.12PK=log10(df.sales$PRICE.12PK), ln_PRICE.30PK=log10(df.sales$PRICE.30PK))
+fitModel2<-lm(ln_CASES.18PK~ln_PRICE.18PK+ln_PRICE.12PK+ln_PRICE.30PK,data=df.sales)
+summary(fitModel2)
 
-
-
-
-
-
+# The log-log regression model for predicting sales of 18-packs from price of 18-packs gave much better results than 
+## the original model fitted to the unlogged variables.
+# But what about prices if the other carton sizes?
+# it is reasonable to expect that there will also be substitutio effects, i.r. "cross-price elasticities"
+#  Consumers ought to buy relatively more/fewer 18-paks hen the price of another carton size is raised/lowered. 
 
 
 
